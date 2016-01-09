@@ -36,3 +36,4 @@ Vagrant Box Builder(CentOS 7.*)
 
  etc...
 
+## The MIT License (MIT)
