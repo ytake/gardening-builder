@@ -2,11 +2,11 @@
 
 rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 
-sudo yum install -y --enablerepo=remi --enablerepo=remi-php70 php php-opcache php-devel php-fpm php-gd php-pdo php-dom \
+sudo yum install -y --enablerepo=remi --enablerepo=remi-php56 php php-opcache php-devel php-fpm php-gd php-pdo php-dom \
 php-mbstring php-mcrypt php-mysqlnd php-mssql \
-php-pecl-xdebug php-openssl php-json php-pecl-apcu php-pdo_sqlite php-pdo_mysql \
-php-pecl-memcached php-bcmath php-msgpack php-ldap \
-php-pecl-imagick php-pgsql php-pecl-pthreads php-pecl-msgpack php-pecl-mongodb
+php-pecl-xdebug php-pecl-xhprof \ php-openssl php-json php-pecl-apcu php-pdo_sqlite php-pdo_mysql \
+php-pecl-memcached php-pecl-couchbase2 php-pecl-zmq php-bcmath php-msgpack php-ldap \
+php-pecl-imagick php-pgsql php-pecl-stomp
 
 # composer install
 curl -sS https://getcomposer.org/installer | php
@@ -26,7 +26,7 @@ echo "xdebug.idekey = PHPSTORM" >> /etc/php.d/15-xdebug.ini
 
 echo "opcache.revalidate_freq = 0" >> /etc/php.d/10-opcache.ini
 
-sed -i -e "s/listen = 127.0.0.1:9000/listen = \/var\/run\/php7-fpm.sock/g" /etc/php-fpm.d/www.conf
+sed -i -e "s/listen = 127.0.0.1:9000/listen = \/var\/run\/php5-fpm.sock/g" /etc/php-fpm.d/www.conf
 sed -i "s|user = apache|user = vagrant|g" /etc/php-fpm.d/www.conf
 sed -i "s|group = apache|group = vagrant|g" /etc/php-fpm.d/www.conf
 
