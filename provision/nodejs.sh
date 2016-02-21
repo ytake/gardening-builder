@@ -8,6 +8,6 @@ yum install -y nodejs
 node -v
 npm --version
 
-npm install -g jshint
-npm install -g grunt
-npm install -g gulp
+sudo npm install -g jshint
+sudo npm install -g grunt
+sudo npm install -g gulp

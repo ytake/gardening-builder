@@ -25,5 +25,6 @@ Vagrant.configure(2) do |config|
   config.vm.provision 'shell', path: './provision/hhvm.sh'
   config.vm.provision :reload
   config.vm.provision 'shell', path: './provision/servers.sh'
-
+  config.vm.provision :reload
+  config.vm.provision 'shell', path: './provision/finished.sh'
 end
