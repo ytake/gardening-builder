@@ -6,7 +6,7 @@ sudo yum install -y --enablerepo=remi --enablerepo=remi-php70 php php-opcache ph
 php-mbstring php-mcrypt php-mysqlnd php-mssql \
 php-pecl-xdebug php-openssl php-json php-pecl-apcu php-pdo_sqlite php-pdo_mysql \
 php-pecl-memcached php-bcmath php-msgpack php-ldap \
-php-pecl-imagick php-pgsql php-pecl-pthreads php-pecl-msgpack php-pecl-mongodb
+php-pecl-imagick php-pgsql php-pecl-pthreads php-pecl-msgpack php-pecl-mongodb php-pecl-zmq
 
 # composer install
 curl -sS https://getcomposer.org/installer | php
