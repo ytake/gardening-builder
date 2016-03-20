@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-#!/usr/bin/env bash
-
 sudo yum install -y libc-client
 sudo yum install -y libdwarf
 sudo yum install -y libyaml
