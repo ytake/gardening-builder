@@ -5,11 +5,13 @@ yum update
 
 # Need to get EPEL repositories
 rpm -Uvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
+sudo yum update
+sudo yum install -y telnet
 
-yum install -y telnet
+sudo yum install -y telnet
 
 ## to japanese
-yum -y install ibus-kkc vlgothic-*
+sudo yum -y install ibus-kkc vlgothic-*
 localectl set-locale LANG=ja_JP.UTF-8
 source /etc/locale.conf
 timedatectl set-timezone Asia/Tokyo
