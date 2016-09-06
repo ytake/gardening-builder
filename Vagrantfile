@@ -13,7 +13,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.box = "bento/centos-7.1"
   config.vm.box_version = ">= 0"
-
+  config.ssh.insert_key = false
   config.vm.provision 'shell', path: './provision/update.sh'
   config.vm.provision 'shell', path: './provision/nodejs.sh'
   config.vm.provision :reload
@@ -25,5 +25,6 @@ Vagrant.configure(2) do |config|
   config.vm.provision 'shell', path: './provision/hhvm.sh'
   config.vm.provision :reload
   config.vm.provision 'shell', path: './provision/servers.sh'
-
+  config.vm.provision :reload
+  config.vm.provision 'shell', path: './provision/end.sh'
 end

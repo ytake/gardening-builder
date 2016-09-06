@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# node.js install 5.*
-curl -sL https://rpm.nodesource.com/setup_5.x | bash -
+# node.js install 6.*
+curl -sL https://rpm.nodesource.com/setup_6.x | bash -
 yum install -y nodejs
 
 # node.js version
