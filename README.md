@@ -8,8 +8,8 @@ Vagrant Box Builder(CentOS 7.*)
 ### System
  - CentOS 7
  - PHP 7.x(remi repository)
- - HHVM 3.9.0
- - Node.js 5.x
+ - HHVM 3.14.x
+ - Node.js 6.x
  - Java 1.8.0_65
  - Git
  - GD and Imagick

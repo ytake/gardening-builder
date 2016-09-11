@@ -20,10 +20,15 @@ echo "html_errors = On" >> /etc/hhvm/server.ini
 echo "error_reporting = 22527" >> /etc/hhvm/server.ini
 echo "hhvm.server.fix_path_info = true" >> /etc/hhvm/server.ini
 
-sed -i "s/date.timezone.*/date.timezone = Asia\/Tokyo/" /etc/hhvm/php.ini
-sed -i "s/ExecStart=\/usr\/bin\/hhvm -c \/etc\/hhvm\/server.ini -c \/etc\/hhvm\/php.ini --user hhvm --mode daemon*/ExecStart=\/usr\/bin\/hhvm -c \/etc\/hhvm\/server.ini -c \/etc\/hhvm\/php.ini --user vagrant --mode daemon/" /usr/lib/systemd/system/hhvm.service
+sed -i "s|date.timezone = *|date.timezone = Asia\/Tokyo|g" /etc/hhvm/php.ini
+sed -i "s|hhvm.server.port = 9001|hhvm.server.port = 9000|g" /etc/hhvm/server.ini
+
+sed -i "s|--user nginx|--user vagrant|g" /usr/lib/systemd/system/hhvm.service
+sed -i "s|-vServer.Port=9001|-vServer.Port=9000|g" /usr/lib/systemd/system/hhvm.service
 
 sudo mkdir /var/run/hhvm
 sudo chmod 775 /var/run/hhvm
 sudo mkdir /var/log/hhvm
 sudo chmod 777 /var/log/hhvm
+sudo mkdir /var/cache/nginx
+sudo chmod 777 /var/cache/nginx
