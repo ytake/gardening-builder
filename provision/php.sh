@@ -101,5 +101,6 @@ sudo rm -rf xhprof
 curl -s https://packagecloud.io/install/repositories/phalcon/stable/script.rpm.sh | sudo bash
 
 git clone --depth=1 https://github.com/phalcon/cphalcon
-sudo ./cphalcon/build/install
+cd  cphalcon/
+sudo ./build/install
 sudo sh -c "echo 'extension=phalcon.so' >> /etc/php.d/50-phalcon.ini"
