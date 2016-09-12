@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 ## for glide
-curl --ciphers ecdhe_ecdsa_aes_256_sha https://glide.sh/get | sh
+go get github.com/Masterminds/glide
+go install github.com/Masterminds/glide
 
 npm install -g jshint
 npm install -g grunt
