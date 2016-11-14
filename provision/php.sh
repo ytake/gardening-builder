@@ -107,4 +107,3 @@ sudo rm -rf xhprof
 ## append php extension
 sudo yum install -y --enablerepo=remi --enablerepo=remi-php70 php-phpiredis php-pecl-couchbase2  \
 php-phalcon3 apcu-panel
-
