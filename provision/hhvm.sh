@@ -10,15 +10,16 @@ lib{xslt,event,yaml,vpx,png,zip,icu,mcrypt,memcached,cap,dwarf}-devel \
 glog-devel oniguruma-devel ocaml gperf enca libjpeg-turbo-devel openssl-devel \
 mariadb mariadb-server make -y
 
-sudo rpm -Uvh http://mirrors.linuxeye.com/hhvm-repo/7/x86_64/hhvm-3.14.4-1.el7.centos.x86_64.rpm
+sudo rpm -Uvh http://mirrors.linuxeye.com/hhvm-repo/7/x86_64/hhvm-3.15.2-1.el7.centos.x86_64.rpm
 
 echo "hhvm.server.user = vagrant" >> /etc/hhvm/server.ini
 echo "hhvm.log.header = true" >> /etc/hhvm/server.ini
-echo "hhvm.debug.server_error_message" >> /etc/hhvm/server.ini
+echo "hhvm.debug.server_error_message = true" >> /etc/hhvm/server.ini
 echo "display_errors = On" >> /etc/hhvm/server.ini
 echo "html_errors = On" >> /etc/hhvm/server.ini
 echo "error_reporting = 22527" >> /etc/hhvm/server.ini
 echo "hhvm.server.fix_path_info = true" >> /etc/hhvm/server.ini
+echo "hhvm.php7.all = true" >> /etc/hhvm/server.ini
 
 sed -i "s|date.timezone = *|date.timezone = Asia\/Tokyo|g" /etc/hhvm/php.ini
 sed -i "s|hhvm.server.port = 9001|hhvm.server.port = 9000|g" /etc/hhvm/server.ini

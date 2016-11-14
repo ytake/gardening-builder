@@ -13,6 +13,7 @@ sudo yum install -y nginx
 /usr/sbin/nginx -V
 
 sed -i "s/user nginx;/user vagrant;/" /etc/nginx/nginx.conf
+sed -i "s/user  nginx;/user vagrant;/" /etc/nginx/nginx.conf
 sed -i "s/# server_names_hash_bucket_size.*/server_names_hash_bucket_size 64;/" /etc/nginx/nginx.conf
 
 # Copy fastcgi_params to Nginx because they broke it on the PPA

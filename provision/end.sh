@@ -13,7 +13,6 @@ sudo echo "[PostgreSQL]" $(psql --version) >> /etc/motd
 sudo echo "[mysql]" $(mysql --version 2>&1) >> /etc/motd
 sudo echo "[mongodb]" $(mongo -version 2>&1) >> /etc/motd
 sudo echo "[couchbase]" $(/opt/couchbase/bin/couchbase-server -v 2>&1) >> /etc/motd
-sudo echo 'Elasticsearch 2.x' >> /etc/motd
 sudo echo '>>>>>>>>>> web servers <<<<<<<<<<' >> /etc/motd
 sudo echo "[apache]" $(httpd -v | grep Apache 2>&1) >> /etc/motd
 sudo echo "[nginx]" $(nginx -v 2>&1) >> /etc/motd
