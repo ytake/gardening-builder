@@ -94,6 +94,7 @@ php-phalcon3 apcu-panel php-pecl-xhprof
 git clone https://github.com/facebookarchive/xhp-php5-extension.git
 
 cd xhp-php5-extension
+phpize
 ./configure
 sudo make && sudo make install
 sudo sh -c "echo 'extension=xhp.so' >> /etc/php.d/50-xhp.ini"
