@@ -12,8 +12,6 @@ yum install -y mysql mysql-devel mysql-server mysql-libs
 # for backup ini
 cp /etc/my.cnf /etc/my.cnf.backup
 
-sed -i '/^bind-address/s/bind-address.*=.*/bind-address = 0.0.0.0/' /etc/my.cnf
-
 /bin/systemctl enable mysqld.service
 /bin/systemctl start mysqld.service
 
@@ -29,7 +27,9 @@ mysql --user="root" --password="secret" -e  "set password for 'gardening'@'local
 
 /bin/systemctl restart mysqld.service
 
-# for postgresql install
+###############################################################
+## for postgresql install
+###############################################################
 wget http://yum.postgresql.org/9.4/redhat/rhel-7-x86_64/pgdg-centos94-9.4-2.noarch.rpm
 
 rpm -ivh pgdg-centos94-9.4-2.noarch.rpm
@@ -47,13 +47,17 @@ sudo -u postgres /usr/bin/createdb --echo --owner=gardening gardening
 
 rm -rf pgdg-centos94-9.4-2.noarch.rpm
 
-# for memcached
+###############################################################
+## for memcached
+###############################################################
 sudo yum install -y memcached memcached-devel
 
 /bin/systemctl enable memcached
 /bin/systemctl restart memcached
 
-# redis
+###############################################################
+## Redis
+###############################################################
 sudo yum --enablerepo=remi,epel install -y redis
 
 sed -i "s/daemonize no/daemonize yes/" /etc/redis.conf
@@ -62,16 +66,15 @@ sed -i "s/appendonly no/appendonly yes/" /etc/redis.conf
 /bin/systemctl enable redis
 /bin/systemctl start redis
 
-rm -rf mysql-community-release-el6-5.noarch.rpm
-
-# install fluentd
+###############################################################
+## install fluentd
+###############################################################
 sudo curl -L https://toolbelt.treasuredata.com/sh/install-redhat-td-agent2.sh | sh
 
 echo "
 <match local.**>
   type stdout
 </match>
-
 # for lumen
 <match lumen.**>
   type stdout
@@ -98,3 +101,5 @@ sudo /usr/share/elasticsearch/bin/plugin install royrusso/elasticsearch-HQ
 sudo /usr/share/elasticsearch/bin/plugin install polyfractal/elasticsearch-inquisitor
 sudo /usr/share/elasticsearch/bin/plugin install analysis-kuromoji
 sudo /usr/share/elasticsearch/bin/plugin install analysis-icu
+
+rm -rf mysql-community-release-el6-5.noarch.rpm
