@@ -106,10 +106,10 @@ sudo yum install -y --enablerepo=remi --enablerepo=remi-php70 php-phpiredis php-
 php-phalcon3 apcu-panel php-twig php-soap php-pecl-uuid
 
 sudo yum install -y flex bison
-git clone https://github.com/phplang/xhp.git
-
-cd xhp
+https://github.com/KMK-ONLINE/xhp-php7-extension.git
+cd xhp-php7-extension
 phpize
 ./configure
 sudo make && sudo make install
 sudo sh -c "echo 'extension=xhp.so' >> /etc/php.d/50-xhp.ini"
+rm -rf xhp-php7-extension

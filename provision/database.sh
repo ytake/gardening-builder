@@ -103,3 +103,4 @@ sudo /usr/share/elasticsearch/bin/plugin install polyfractal/elasticsearch-inqui
 sudo /usr/share/elasticsearch/bin/plugin install analysis-kuromoji
 sudo /usr/share/elasticsearch/bin/plugin install analysis-icu
 
+rm -rf mysql-community-release-el6-5.noarch.rpm
