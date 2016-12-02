@@ -106,7 +106,7 @@ sudo yum install -y --enablerepo=remi --enablerepo=remi-php70 php-phpiredis php-
 php-phalcon3 apcu-panel php-twig php-soap php-pecl-uuid
 
 sudo yum install -y flex bison
-https://github.com/KMK-ONLINE/xhp-php7-extension.git
+git clone https://github.com/KMK-ONLINE/xhp-php7-extension.git
 cd xhp-php7-extension
 phpize
 ./configure
