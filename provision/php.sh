@@ -30,7 +30,7 @@ echo "xdebug.remote_autostart = 1" >> /etc/php.d/15-xdebug.ini
 
 echo "opcache.revalidate_freq = 0" >> /etc/php.d/10-opcache.ini
 
-sed -i -e "s/listen = 127.0.0.1:9000/listen = \/var\/run\/php7-fpm.sock/g" /etc/php-fpm.d/www.conf
+sed -i -e "s/listen = 127.0.0.1:9000/listen = \/var\/run\/php5-fpm.sock/g" /etc/php-fpm.d/www.conf
 sed -i "s|user = apache|user = vagrant|g" /etc/php-fpm.d/www.conf
 sed -i "s|group = apache|group = vagrant|g" /etc/php-fpm.d/www.conf
 
@@ -90,11 +90,5 @@ sudo rm -rf /home/vagrant/cpp-driver
 sudo yum install -y --enablerepo=remi --enablerepo=remi-php56 php-phpiredis php-pecl-couchbase2  \
 php-phalcon3 apcu-panel php-pecl-xhprof
 
-## xhp
-git clone https://github.com/facebookarchive/xhp-php5-extension.git
-
-cd xhp-php5-extension
-phpize
-./configure
-sudo make && sudo make install
-sudo sh -c "echo 'extension=xhp.so' >> /etc/php.d/50-xhp.ini"
+# permission for cas
+sudo chown vagrant /var/lib/php/session
