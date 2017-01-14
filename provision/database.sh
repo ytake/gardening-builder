@@ -5,27 +5,45 @@ yum remove mysql*
 
 yum -y remove mariadb-libs
 
-wget http://dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm
-rpm -Uvh mysql-community-release-el6-5.noarch.rpm
-yum install -y mysql mysql-devel mysql-server mysql-libs
+wget https://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm
+sudo yum install -y mysql57-community-release-el7-8.noarch.rpm
+sudo yum install -y mysql mysql-devel mysql-server mysql-libs
+sudo systemctl start mysqld.service
+sudo systemctl enable mysqld.service
+
+MYSQL_TEMP_PWD=`sudo cat /var/log/mysqld.log | grep 'A temporary password is generated' | awk -F'root@localhost: ' '{print $2}'`
+mysqladmin -u root -p`echo $MYSQL_TEMP_PWD` password '00:secreT,@'
 
 # for backup ini
 cp /etc/my.cnf /etc/my.cnf.backup
 
-/bin/systemctl enable mysqld.service
-/bin/systemctl start mysqld.service
+echo "
+character-set-server = utf8
+default-storage-engine = InnoDB
 
-mysql --user="root" -e "set password = password('secret');"
-mysql --user="root" --password="secret" -e "DROP USER ''@'localhost';"
-mysql --user="root" --password="secret" -e "GRANT ALL ON *.* TO root@'0.0.0.0' IDENTIFIED BY 'secret' WITH GRANT OPTION;"
-mysql --user="root" --password="secret" -e "CREATE USER 'gardening'@'0.0.0.0' IDENTIFIED BY 'secret';"
-mysql --user="root" --password="secret" -e "GRANT ALL ON *.* TO 'gardening'@'0.0.0.0' IDENTIFIED BY 'secret' WITH GRANT OPTION;"
-mysql --user="root" --password="secret" -e "GRANT ALL ON *.* TO 'gardening'@'%' IDENTIFIED BY 'secret' WITH GRANT OPTION;"
-mysql --user="root" --password="secret" -e "FLUSH PRIVILEGES;"
-mysql --user="root" --password="secret" -e "CREATE DATABASE gardening;"
-mysql --user="root" --password="secret" -e  "set password for 'gardening'@'localhost' = password('secret');"
+slow_query_log=1
+long_query_time=1
+log_queries_not_using_indexes=1
+slow_query_log_file=/var/log/mysql/slow_query.log
 
-/bin/systemctl restart mysqld.service
+[client]
+user=root
+password=00:secreT,@
+" >> /etc/my.cnf
+
+sudo systemctl restart mysqld.service
+
+mysql -e "GRANT ALL ON *.* TO root@'%' IDENTIFIED BY '00:secreT,@' WITH GRANT OPTION;"
+mysql -e "GRANT ALL ON *.* TO root@'0.0.0.0' IDENTIFIED BY '00:secreT,@' WITH GRANT OPTION;"
+mysql -e "CREATE USER 'gardening'@'0.0.0.0' IDENTIFIED BY '00:secreT,@';"
+mysql -e "GRANT ALL ON *.* TO 'gardening'@'0.0.0.0' IDENTIFIED BY '00:secreT,@' WITH GRANT OPTION;"
+mysql -e "GRANT ALL ON *.* TO 'gardening'@'localhost' IDENTIFIED BY '00:secreT,@' WITH GRANT OPTION;"
+mysql -e "GRANT ALL ON *.* TO 'gardening'@'%' IDENTIFIED BY '00:secreT,@' WITH GRANT OPTION;"
+mysql -e "FLUSH PRIVILEGES;"
+mysql -e "CREATE DATABASE gardening;"
+mysql -e "set password for 'gardening'@'localhost' = password('00:secreT,@');"
+
+sudo systemctl restart mysqld.service
 
 ###############################################################
 ## for postgresql install
@@ -83,24 +101,23 @@ echo "
 " >> /etc/td-agent/td-agent.conf
 
 # for elasticsearch
-rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch
+rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
 cat > /etc/yum.repos.d/elasticsearch.repo << EOF
-[elasticsearch-2.x]
-name=Elasticsearch repository for 2.x packages
-baseurl=http://packages.elastic.co/elasticsearch/2.x/centos
+[elasticsearch-5.x]
+name=Elasticsearch repository for 5.x packages
+baseurl=https://artifacts.elastic.co/packages/5.x/yum
 gpgcheck=1
-gpgkey=http://packages.elastic.co/GPG-KEY-elasticsearch
+gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
 enabled=1
+autorefresh=1
+type=rpm-md
 EOF
 
 sudo yum install -y elasticsearch
 
 sed -i "s/#http.port: 9200/http.port: 9200/" /etc/elasticsearch/elasticsearch.yml
 
-sudo /usr/share/elasticsearch/bin/plugin install mobz/elasticsearch-head
-sudo /usr/share/elasticsearch/bin/plugin install royrusso/elasticsearch-HQ
-sudo /usr/share/elasticsearch/bin/plugin install polyfractal/elasticsearch-inquisitor
-sudo /usr/share/elasticsearch/bin/plugin install analysis-kuromoji
-sudo /usr/share/elasticsearch/bin/plugin install analysis-icu
+sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install analysis-kuromoji
+sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install analysis-icu
 
-rm -rf mysql-community-release-el6-5.noarch.rpm
+rm -rf mysql57-community-release-el7-8.noarch.rpm

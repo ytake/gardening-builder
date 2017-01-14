@@ -100,16 +100,6 @@ sudo echo "xhprof.output_dir = /tmp/xhprof" >> /etc/php.d/50-phpng_xhprof.ini
 cd ..
 sudo rm -rf xhprof
 
-
 ## append php extension
-sudo yum install -y --enablerepo=remi --enablerepo=remi-php70 php-phpiredis php-pecl-couchbase2  \
+sudo yum install -y --enablerepo=remi --enablerepo=remi-php70 php-pecl-couchbase2  \
 php-phalcon3 apcu-panel php-twig php-soap php-pecl-uuid
-
-sudo yum install -y flex bison
-git clone https://github.com/KMK-ONLINE/xhp-php7-extension.git
-cd xhp-php7-extension
-phpize
-./configure
-sudo make && sudo make install
-sudo sh -c "echo 'extension=xhp.so' >> /etc/php.d/50-xhp.ini"
-rm -rf xhp-php7-extension

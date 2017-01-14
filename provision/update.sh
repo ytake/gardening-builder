@@ -4,8 +4,7 @@
 yum update
 
 # Need to get EPEL repositories
-rpm -Uvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm
-
+rpm -Uvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm
 sudo yum install -y epel-release
 rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 sudo rm -f remi-release-7.rpm
@@ -62,15 +61,4 @@ export JAVA_HOME=/usr/bin
 sudo yum install -y re2c
 rpm -Uvh http://downloads.datastax.com/cpp-driver/centos/7/dependencies/libuv/v1.8.0/libuv-1.8.0-1.el7.centos.x86_64.rpm
 
-# install golang
-sudo yum install -y https://downloads.ulyaoth.net/rpm/ulyaoth-latest.centos.noarch.rpm
-sudo yum install -y go
-
 sudo yum update -y libcurl
-mkdir /home/vagrant/go
-mkdir /home/vagrant/go/bin
-sudo chown -R vagrant.vagrant go
-sudo ln -s /usr/local/go/bin/go /usr/bin/go
-echo "export GOPATH=/home/vagrant/go" >> /home/vagrant/.bash_profile
-echo "export PATH=\$PATH:\$GOPATH/bin:/usr/local/go/bin" >> /home/vagrant/.bash_profile
-source /home/vagrant/.bash_profile
