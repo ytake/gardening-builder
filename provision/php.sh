@@ -1,14 +1,17 @@
 #!/usr/bin/env bash
 
 sudo yum install -y --enablerepo=remi --enablerepo=remi-php70 php php-opcache php-devel php-fpm php-gd php-pdo php-dom \
-php-mbstring php-mcrypt php-mysqlnd php-mssql php-pear.noarch \
-php-pecl-xdebug php-openssl php-json php-pecl-apcu php-pdo_sqlite php-pdo_mysql \
-php-pecl-memcached php-bcmath php-msgpack php-ldap \
-php-pecl-imagick php-pgsql php-pecl-pthreads php-pecl-msgpack php-pecl-mongodb php-pecl-zmq
+php-mbstring php-mcrypt php-mysqlnd php-sqlsrv php-pear.noarch php-pdo-dblib php-pecl-event \
+php-pecl-xdebug php-openssl php-json php-pecl-apcu php-pecl-apcu-bc php-pdo_sqlite php-pdo_mysql \
+php-pecl-memcached php-bcmath php-msgpack php-ldap php-pecl-uopz php-pecl-redis \
+php-pecl-imagick php-pgsql php-pecl-pthreads php-pecl-mongodb php-pecl-zmq php-pecl-stomp php-pecl-amqp
 
 # composer install
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
+chmod 755 /usr/local/bin/composer
+sudo chown vagrant /usr/local/bin/composer
+
 printf "\nPATH=\"/home/vagrant/.config/composer/vendor/bin:\$PATH\"\n" | tee -a /home/vagrant/.profile
 
 sed -i "s/display_errors = .*/display_errors = On/" /etc/php.ini
@@ -23,6 +26,7 @@ echo "xdebug.remote_connect_back = 1" >> /etc/php.d/15-xdebug.ini
 echo "xdebug.remote_port = 9080" >> /etc/php.d/15-xdebug.ini
 echo "xdebug.max_nesting_level = 512" >> /etc/php.d/15-xdebug.ini
 echo "xdebug.idekey = PHPSTORM" >> /etc/php.d/15-xdebug.ini
+echo "xdebug.remote_autostart = 1" >> /etc/php.d/15-xdebug.ini
 
 echo "opcache.revalidate_freq = 0" >> /etc/php.d/10-opcache.ini
 
@@ -53,8 +57,6 @@ export PATH=\"\$PATH:\$HOME/.config/composer/vendor/bin\"
 ## couchbase
 ###############################################################
 sudo yum install -y openssl-devel libcouchbase-devel
-sudo pecl install couchbase-2.2.1
-sudo sh -c "echo 'extension=couchbase.so' >> /etc/php.d/50-couchbase.ini"
 
 sudo yum install -y --enablerepo=remi --enablerepo=remi-php70 automake cmake gcc gcc-c++ git libtool openssl-devel wget gmp gmp-devel boost pcre-devel git
 pushd /tmp
@@ -77,10 +79,11 @@ cd cpp-driver/build
 sudo cmake ..
 sudo make
 sudo make install
+cd ..
 sudo pecl install cassandra
 sudo sh -c "echo 'extension=cassandra.so' >> /etc/php.d/50-cassandra.ini"
 cd ..
-sudo rm -rf cpp-driver
+sudo rm -rf /home/vagrant/cpp-driver
 
 ###############################################################
 ## xhprof
@@ -97,10 +100,6 @@ sudo echo "xhprof.output_dir = /tmp/xhprof" >> /etc/php.d/50-phpng_xhprof.ini
 cd ..
 sudo rm -rf xhprof
 
-## phalcon
-curl -s https://packagecloud.io/install/repositories/phalcon/stable/script.rpm.sh | sudo bash
-
-git clone --depth=1 https://github.com/phalcon/cphalcon
-cd cphalcon/build
-sudo ./install
-sudo sh -c "echo 'extension=phalcon.so' >> /etc/php.d/50-phalcon.ini"
+## append php extension
+sudo yum install -y --enablerepo=remi --enablerepo=remi-php70 php-pecl-couchbase2  \
+php-phalcon3 apcu-panel php-twig php-soap php-pecl-uuid
