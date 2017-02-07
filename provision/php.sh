@@ -87,7 +87,7 @@ cd ..
 sudo rm -rf /home/vagrant/cpp-driver
 
 ## append php extension
-sudo yum install -y --enablerepo=remi --enablerepo=remi-php56 php-phpiredis php-pecl-couchbase2  \
+sudo yum install -y --enablerepo=remi --enablerepo=remi-php56 php-phpiredis php-pecl-pcs php-pecl-couchbase2  \
 php-phalcon3 apcu-panel php-pecl-xhprof
 
 # permission for cas
