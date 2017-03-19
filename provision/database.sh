@@ -5,6 +5,9 @@ yum remove mysql*
 
 yum -y remove mariadb-libs
 
+# sqlite3
+sudo yum -y install sqlite
+
 wget https://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm
 sudo yum install -y mysql57-community-release-el7-8.noarch.rpm
 sudo yum install -y mysql mysql-devel mysql-server mysql-libs
@@ -48,22 +51,22 @@ sudo systemctl restart mysqld.service
 ###############################################################
 ## for postgresql install
 ###############################################################
-wget http://yum.postgresql.org/9.4/redhat/rhel-7-x86_64/pgdg-centos94-9.4-2.noarch.rpm
+wget http://yum.postgresql.org/9.5/redhat/rhel-7-x86_64/pgdg-centos95-9.5-2.noarch.rpm
 
-rpm -ivh pgdg-centos94-9.4-2.noarch.rpm
-sudo yum -y install postgresql94-server postgresql94-devel postgresql94-contrib
+sudo rpm -ivh pgdg-centos95-9.5-2.noarch.rpm
+sudo yum -y install postgresql95-server postgresql95-devel postgresql95-contrib
 
-sudo /usr/pgsql-9.4/bin/postgresql94-setup initdb
-/bin/systemctl enable postgresql-9.4.service
-/bin/systemctl start postgresql-9.4.service
+sudo /usr/pgsql-9.5/bin/postgresql95-setup initdb
+/bin/systemctl enable postgresql-9.5.service
+/bin/systemctl start postgresql-9.5.service
 
-sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /var/lib/pgsql/9.4/data/postgresql.conf
-echo "host    all             all             10.0.2.2/32               md5" | tee -a /var/lib/pgsql/9.4/data/pg_hba.conf
-sudo -u postgres psql -c "CREATE ROLE gardening LOGIN UNENCRYPTED PASSWORD 'secret' SUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION;"
+sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /var/lib/pgsql/9.5/data/postgresql.conf
+echo "host    all             all             10.0.2.2/32               md5" | tee -a /var/lib/pgsql/9.5/data/pg_hba.conf
+sudo -u postgres psql -c "CREATE ROLE gardening LOGIN UNENCRYPTED PASSWORD '00:secreT,@' SUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION;"
 sudo -u postgres /usr/bin/createdb --echo --owner=gardening gardening
-/bin/systemctl restart postgresql-9.4.service
+/bin/systemctl restart postgresql-9.5.service
 
-rm -rf pgdg-centos94-9.4-2.noarch.rpm
+rm -rf pgdg-centos95-9.5-2.noarch.rpm
 
 ###############################################################
 ## for memcached

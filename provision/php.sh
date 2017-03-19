@@ -17,6 +17,7 @@ printf "\nPATH=\"/home/vagrant/.config/composer/vendor/bin:\$PATH\"\n" | tee -a 
 sed -i "s/display_errors = .*/display_errors = On/" /etc/php.ini
 sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php.ini
 sed -i "s/;date.timezone.*/date.timezone = Asia\/Tokyo/" /etc/php.ini
+sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php.ini
 
 ###############################################################
 ## xdebug
@@ -100,6 +101,34 @@ sudo echo "xhprof.output_dir = /tmp/xhprof" >> /etc/php.d/50-phpng_xhprof.ini
 cd ..
 sudo rm -rf xhprof
 
+###############################################################
+## for v8js
+###############################################################
+git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+export PATH=`pwd`/depot_tools:"$PATH"
+fetch v8
+cd v8
+git checkout 5.6.326.12
+gclient sync
+tools/dev/v8gen.py -vv x64.release
+echo is_component_build = true >> out.gn/x64.release/args.gn
+# Build
+ninja -C out.gn/x64.release/
+
+#
+sudo mkdir -p /opt/v8/{lib,include}
+sudo cp /home/vagrant/v8/out.gn/x64.release/lib*.so /home/vagrant/v8/out.gn/x64.release/*_blob.bin /opt/v8/lib/
+sudo cp -R /home/vagrant/v8/include/* /opt/v8/include/
+
+git clone https://github.com/phpv8/v8js.git -b php7
+cd v8js
+phpize
+./configure --with-v8js=/opt/v8
+sudo make && sudo make install
+sudo sh -c "echo 'extension=v8js.so' >> /etc/php.d/50-v8js.ini"
+cd ..
+sudo rm -rf v8js
+
 ## append php extension
 sudo yum install -y --enablerepo=remi --enablerepo=remi-php70 php-pecl-couchbase2  \
-php-phalcon3 apcu-panel php-twig php-soap php-pecl-uuid
+php-phalcon3 apcu-panel php-soap php-pecl-uuid php-pecl-pcs php-pecl-rdkafka php-dbg
