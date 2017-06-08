@@ -4,7 +4,7 @@ sudo yum install -y --enablerepo=remi --enablerepo=remi-php70 php php-opcache ph
 php-mbstring php-mcrypt php-mysqlnd php-sqlsrv php-pear.noarch php-pdo-dblib php-pecl-event \
 php-pecl-xdebug php-openssl php-json php-pecl-apcu php-pecl-apcu-bc php-pdo_sqlite php-pdo_mysql \
 php-pecl-memcached php-bcmath php-msgpack php-ldap php-pecl-uopz php-pecl-redis \
-php-pecl-imagick php-pgsql php-pecl-pthreads php-pecl-mongodb php-pecl-zmq php-pecl-stomp php-pecl-amqp
+php-pecl-imagick php-pgsql php-pecl-pthreads php-pecl-mongodb php-pecl-zmq php-pecl-stomp php-pecl-amqp php-intl
 
 # composer install
 curl -sS https://getcomposer.org/installer | php
@@ -80,8 +80,7 @@ cd cpp-driver/build
 sudo cmake ..
 sudo make
 sudo make install
-cd ..
-sudo pecl install cassandra
+sudo pecl install cassandra-1.2.2
 sudo sh -c "echo 'extension=cassandra.so' >> /etc/php.d/50-cassandra.ini"
 cd ..
 sudo rm -rf /home/vagrant/cpp-driver
@@ -100,34 +99,6 @@ sudo sh -c "echo 'extension=phpng_xhprof.so' >> /etc/php.d/50-phpng_xhprof.ini"
 sudo echo "xhprof.output_dir = /tmp/xhprof" >> /etc/php.d/50-phpng_xhprof.ini
 cd ..
 sudo rm -rf xhprof
-
-###############################################################
-## for v8js
-###############################################################
-git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
-export PATH=`pwd`/depot_tools:"$PATH"
-fetch v8
-cd v8
-git checkout 5.6.326.12
-gclient sync
-tools/dev/v8gen.py -vv x64.release
-echo is_component_build = true >> out.gn/x64.release/args.gn
-# Build
-ninja -C out.gn/x64.release/
-
-#
-sudo mkdir -p /opt/v8/{lib,include}
-sudo cp /home/vagrant/v8/out.gn/x64.release/lib*.so /home/vagrant/v8/out.gn/x64.release/*_blob.bin /opt/v8/lib/
-sudo cp -R /home/vagrant/v8/include/* /opt/v8/include/
-
-git clone https://github.com/phpv8/v8js.git -b php7
-cd v8js
-phpize
-./configure --with-v8js=/opt/v8
-sudo make && sudo make install
-sudo sh -c "echo 'extension=v8js.so' >> /etc/php.d/50-v8js.ini"
-cd ..
-sudo rm -rf v8js
 
 ## append php extension
 sudo yum install -y --enablerepo=remi --enablerepo=remi-php70 php-pecl-couchbase2  \

@@ -3,7 +3,6 @@
 sudo echo -en "\033[1;34m" > /etc/motd
 sudo echo '>>>>>>>>>> scripting language <<<<<<<<<<' >> /etc/motd
 sudo echo "[PHP]" $(php -v | grep PHP -m 1 2>&1) >> /etc/motd
-sudo echo "[hhvm]" $(/usr/local/bin/hhvm --version | grep HipHop -m 1 2>&1) >> /etc/motd
 sudo echo "[Node.js]" $(node -v 2>&1) >> /etc/motd
 sudo echo '>>>>>>>>>> data storage <<<<<<<<<<' >> /etc/motd
 sudo echo "[memcached]" $(memcached -h | grep 'memcached' -m 1) >> /etc/motd
