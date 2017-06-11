@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sudo yum install -y --enablerepo=remi --enablerepo=remi-php70 php php-opcache php-devel php-fpm php-gd php-pdo php-dom \
+sudo yum install -y --enablerepo=remi --enablerepo=remi-php71 php php-opcache php-devel php-fpm php-gd php-pdo php-dom \
 php-mbstring php-mcrypt php-mysqlnd php-sqlsrv php-pear.noarch php-pdo-dblib php-pecl-event \
 php-pecl-xdebug php-openssl php-json php-pecl-apcu php-pecl-apcu-bc php-pdo_sqlite php-pdo_mysql \
 php-pecl-memcached php-bcmath php-msgpack php-ldap php-pecl-uopz php-pecl-redis \
@@ -89,6 +89,7 @@ sudo rm -rf /home/vagrant/cpp-driver
 ## xhprof
 ## https://github.com/Yaoguais/phpng-xhprof
 ###############################################################
+cd /home/vagrant
 git clone https://github.com/Yaoguais/phpng-xhprof.git ./xhprof
 cd xhprof
 phpize
@@ -101,5 +102,5 @@ cd ..
 sudo rm -rf xhprof
 
 ## append php extension
-sudo yum install -y --enablerepo=remi --enablerepo=remi-php70 php-pecl-couchbase2  \
+sudo yum install -y --enablerepo=remi --enablerepo=remi-php71 php-pecl-couchbase2  \
 php-phalcon3 apcu-panel php-soap php-pecl-uuid php-pecl-pcs php-pecl-rdkafka php-dbg
