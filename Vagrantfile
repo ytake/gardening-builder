@@ -17,6 +17,9 @@ Vagrant.configure(2) do |config|
   config.vm.provider :virtualbox do |vb|
     vb.customize ["modifyvm", :id, "--memory", "4096"]
   end
+  # Don't Replace The Default Key https://github.com/mitchellh/vagrant/pull/4707
+  config.ssh.insert_key = false
+
   config.vm.provision 'shell', path: './provision/update.sh'
   config.vm.provision 'shell', path: './provision/nodejs.sh'
   config.vm.provision :reload
@@ -25,8 +28,6 @@ Vagrant.configure(2) do |config|
   config.vm.provision 'shell', path: './provision/document_database.sh'
   config.vm.provision :reload
   config.vm.provision 'shell', path: './provision/php.sh'
-  config.vm.provision :reload
-  config.vm.provision 'shell', path: './provision/hhvm.sh'
   config.vm.provision :reload
   config.vm.provision 'shell', path: './provision/servers.sh'
   config.vm.provision :reload
