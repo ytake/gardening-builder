@@ -42,9 +42,6 @@ EOF
 
 /bin/systemctl enable php-fpm
 /bin/systemctl restart php-fpm
-/bin/systemctl enable hhvm
-/bin/systemctl restart hhvm
-/bin/systemctl status hhvm
 
 dd if=/dev/zero of=/EMPTY bs=1M
 rm -f /EMPTY

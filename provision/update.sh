@@ -62,3 +62,5 @@ sudo yum install -y re2c
 rpm -Uvh http://downloads.datastax.com/cpp-driver/centos/7/dependencies/libuv/v1.8.0/libuv-1.8.0-1.el7.centos.x86_64.rpm
 
 sudo yum update -y libcurl
+
+sudo yum install -y supervisor

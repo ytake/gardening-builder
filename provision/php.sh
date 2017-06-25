@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 sudo yum install -y --enablerepo=remi --enablerepo=remi-php56 php php-opcache php-devel php-fpm php-gd php-pdo php-dom \
-php-mbstring php-mcrypt php-mysqlnd php-pear.noarch php-mssql php-pecl-stomp php-pecl-event \
+php-mbstring php-mcrypt php-mysqlnd php-pear.noarch php-mssql php-pecl-stomp php-pecl-event php-pecl-igbinary \
 php-pecl-xdebug php-openssl php-json php-pecl-apcu php-pdo_sqlite php-pdo_mysql php-pimple php-twig \
 php-pecl-memcached php-bcmath php-msgpack php-ldap php-pecl-uopz php-pecl-redis php-pecl-riak \
-php-pecl-imagick php-pgsql php-pecl-pthreads php-pecl-mongodb php-pecl-zmq php-pecl-stomp php-pecl-amqp
+php-pecl-imagick php-pgsql php-pecl-pthreads php-pecl-mongodb php-pecl-zmq php-pecl-stomp php-pecl-amqp php-intl
 
 # composer install
 curl -sS https://getcomposer.org/installer | php
@@ -14,9 +14,11 @@ sudo chown vagrant /usr/local/bin/composer
 
 printf "\nPATH=\"/home/vagrant/.config/composer/vendor/bin:\$PATH\"\n" | tee -a /home/vagrant/.profile
 
+
 sed -i "s/display_errors = .*/display_errors = On/" /etc/php.ini
 sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php.ini
 sed -i "s/;date.timezone.*/date.timezone = Asia\/Tokyo/" /etc/php.ini
+sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php.ini
 
 ###############################################################
 ## xdebug
@@ -57,38 +59,25 @@ source /home/vagrant/.bash_profile
 ###############################################################
 ## couchbase
 ###############################################################
-sudo yum install -y openssl-devel libcouchbase-devel
 
+sudo yum install -y openssl-devel libcouchbase-devel
 sudo yum install -y --enablerepo=remi --enablerepo=remi-php56 automake cmake gcc gcc-c++ git libtool openssl-devel wget gmp gmp-devel boost pcre-devel git
-pushd /tmp
-wget http://dist.libuv.org/dist/v1.9.1/libuv-v1.9.1.tar.gz
-tar xzf libuv-v1.9.1.tar.gz
-pushd libuv-v1.9.1
-sh autogen.sh
-./configure
-sudo make install
-popd
-popd
-sudo rpm -Uvh http://downloads.datastax.com/cpp-driver/centos/7/cassandra/v2.4.3/cassandra-cpp-driver-2.4.3-1.el7.centos.x86_64.rpm
 
 ###############################################################
 ## cassandra
 ###############################################################
-git clone https://github.com/datastax/cpp-driver.git
-sudo mkdir cpp-driver/build
-cd cpp-driver/build
-sudo cmake ..
-sudo make
-sudo make install
-cd ..
-sudo pecl install cassandra
-sudo sh -c "echo 'extension=cassandra.so' >> /etc/php.d/50-cassandra.ini"
-cd ..
-sudo rm -rf /home/vagrant/cpp-driver
+
+sudo rpm -Uvh http://downloads.datastax.com/cpp-driver/centos/7/dependencies/libuv/v1.11.0/libuv-1.11.0-1.el7.centos.x86_64.rpm
+sudo rpm -Uvh http://downloads.datastax.com/cpp-driver/centos/7/cassandra/v2.7.0/cassandra-cpp-driver-2.7.0-1.el7.centos.x86_64.rpm
 
 ## append php extension
-sudo yum install -y --enablerepo=remi --enablerepo=remi-php56 php-phpiredis php-pecl-pcs php-pecl-couchbase2  \
-php-phalcon3 apcu-panel php-pecl-xhprof
+sudo yum install -y --enablerepo=remi --enablerepo=remi-php56 \
+php-phalcon3 apcu-panel php-pecl-xhprof php-pecl-rdkafka php-dbg php-pecl-cassandra
+
+sudo pecl install pcs-1.3.1
+sudo sh -c "echo 'extension=pcs.so' >> /etc/php.d/30-pcs.ini"
+sudo pecl install couchbase-2.2.4
+sudo sh -c "echo 'extension=couchbase.so' >> /etc/php.d/50-couchbase.ini"
 
 # permission for cas
 sudo chown vagrant /var/lib/php/session
