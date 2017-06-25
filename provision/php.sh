@@ -57,33 +57,16 @@ export PATH=\"\$PATH:\$HOME/.config/composer/vendor/bin\"
 ###############################################################
 ## couchbase
 ###############################################################
-sudo yum install -y openssl-devel libcouchbase-devel
 
+sudo yum install -y openssl-devel libcouchbase-devel
 sudo yum install -y --enablerepo=remi --enablerepo=remi-php70 automake cmake gcc gcc-c++ git libtool openssl-devel wget gmp gmp-devel boost pcre-devel git
-pushd /tmp
-wget http://dist.libuv.org/dist/v1.9.1/libuv-v1.9.1.tar.gz
-tar xzf libuv-v1.9.1.tar.gz
-pushd libuv-v1.9.1
-sh autogen.sh
-./configure
-sudo make install
-popd
-popd
-sudo rpm -Uvh http://downloads.datastax.com/cpp-driver/centos/7/cassandra/v2.4.3/cassandra-cpp-driver-2.4.3-1.el7.centos.x86_64.rpm
 
 ###############################################################
 ## cassandra
 ###############################################################
-git clone https://github.com/datastax/cpp-driver.git
-sudo mkdir cpp-driver/build
-cd cpp-driver/build
-sudo cmake ..
-sudo make
-sudo make install
-sudo pecl install cassandra-1.2.2
-sudo sh -c "echo 'extension=cassandra.so' >> /etc/php.d/50-cassandra.ini"
-cd ..
-sudo rm -rf /home/vagrant/cpp-driver
+
+sudo rpm -Uvh http://downloads.datastax.com/cpp-driver/centos/7/dependencies/libuv/v1.11.0/libuv-1.11.0-1.el7.centos.x86_64.rpm
+sudo rpm -Uvh http://downloads.datastax.com/cpp-driver/centos/7/cassandra/v2.7.0/cassandra-cpp-driver-2.7.0-1.el7.centos.x86_64.rpm
 
 ###############################################################
 ## xhprof
@@ -103,4 +86,4 @@ sudo rm -rf xhprof
 
 ## append php extension
 sudo yum install -y --enablerepo=remi --enablerepo=remi-php71 php-pecl-couchbase2  \
-php-phalcon3 apcu-panel php-soap php-pecl-uuid php-pecl-pcs php-pecl-rdkafka php-dbg
+php-phalcon3 apcu-panel php-soap php-pecl-uuid php-pecl-pcs php-pecl-rdkafka php-dbg php-pecl-cassandra
