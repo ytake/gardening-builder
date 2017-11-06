@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-sudo yum install -y --enablerepo=remi --enablerepo=remi-php71 php php-opcache php-devel php-fpm php-gd php-pdo php-dom \
+sudo yum install -y --enablerepo=remi --enablerepo=remi-php71 php php-fpm \
+php-opcache php-devel php-fpm php-gd php-pdo php-dom \
 php-mbstring php-mcrypt php-mysqlnd php-sqlsrv php-pear.noarch php-pdo-dblib php-pecl-event \
 php-pecl-xdebug php-openssl php-json php-pecl-apcu php-pecl-apcu-bc php-pdo_sqlite php-pdo_mysql \
 php-pecl-igbinary php-pecl-igbinary-devel php-pecl-zip \
