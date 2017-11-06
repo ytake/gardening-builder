@@ -51,9 +51,9 @@ sudo systemctl restart mysqld.service
 ###############################################################
 ## for postgresql install
 ###############################################################
-wget http://yum.postgresql.org/9.5/redhat/rhel-7-x86_64/pgdg-centos95-9.5-2.noarch.rpm
+wget http://yum.postgresql.org/9.5/redhat/rhel-7-x86_64/pgdg-centos95-9.5-3.noarch.rpm
 
-sudo rpm -ivh pgdg-centos95-9.5-2.noarch.rpm
+sudo rpm -ivh pgdg-centos95-9.5-3.noarch.rpm
 sudo yum -y install postgresql95-server postgresql95-devel postgresql95-contrib
 
 sudo /usr/pgsql-9.5/bin/postgresql95-setup initdb
@@ -66,7 +66,7 @@ sudo -u postgres psql -c "CREATE ROLE gardening LOGIN UNENCRYPTED PASSWORD '00:s
 sudo -u postgres /usr/bin/createdb --echo --owner=gardening gardening
 /bin/systemctl restart postgresql-9.5.service
 
-rm -rf pgdg-centos95-9.5-2.noarch.rpm
+rm -rf pgdg-centos95-9.5-3.noarch.rpm
 
 ###############################################################
 ## for memcached
@@ -119,8 +119,29 @@ EOF
 sudo yum install -y elasticsearch
 
 sed -i "s/#http.port: 9200/http.port: 9200/" /etc/elasticsearch/elasticsearch.yml
+echo "network.host: 0.0.0.0" >> /etc/elasticsearch/elasticsearch.yml
+sed -i "s|-Xms2g|-Xms1g|g" /etc/elasticsearch/jvm.options
+sed -i "s|-Xmx2g|-Xmx1g|g" /etc/elasticsearch/jvm.options
 
 sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install analysis-kuromoji
 sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install analysis-icu
 
 rm -rf mysql57-community-release-el7-8.noarch.rpm
+
+# for kibana
+rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
+
+cat > /etc/yum.repos.d/kibana.repo << EOF
+[kibana-5.x]
+name=Kibana repository for 5.x packages
+baseurl=https://artifacts.elastic.co/packages/5.x/yum
+gpgcheck=1
+gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+enabled=1
+autorefresh=1
+type=rpm-md
+EOF
+
+sudo yum install -y kibana
+
+echo "server.host: 0.0.0.0" >> /etc/kibana/kibana.yml
