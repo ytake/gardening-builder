@@ -35,7 +35,6 @@ cp /vagrant/rewrites/selinux.conf /etc/selinux/config
 setenforce 0
 
 sudo yum install -y git
-sudo yum install -y expect
 
 # openssl
 sudo yum install -y openssl-devel readline-devel zlib-devel gcc gcc-c++ boost zeromq-devel

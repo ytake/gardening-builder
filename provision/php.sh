@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
-sudo yum install -y --enablerepo=remi --enablerepo=remi-php71 php php-opcache php-devel php-fpm php-gd php-pdo php-dom \
+sudo yum install -y --enablerepo=remi --enablerepo=remi-php71 php php-fpm \
+php-opcache php-devel php-fpm php-gd php-pdo php-dom \
 php-mbstring php-mcrypt php-mysqlnd php-sqlsrv php-pear.noarch php-pdo-dblib php-pecl-event \
 php-pecl-xdebug php-openssl php-json php-pecl-apcu php-pecl-apcu-bc php-pdo_sqlite php-pdo_mysql \
+php-pecl-igbinary php-pecl-igbinary-devel php-pecl-zip \
 php-pecl-memcached php-bcmath php-msgpack php-ldap php-pecl-uopz php-pecl-redis \
 php-pecl-imagick php-pgsql php-pecl-pthreads php-pecl-mongodb php-pecl-zmq php-pecl-stomp php-pecl-amqp php-intl
 
@@ -86,4 +88,5 @@ sudo rm -rf xhprof
 
 ## append php extension
 sudo yum install -y --enablerepo=remi --enablerepo=remi-php71 php-pecl-couchbase2  \
-php-phalcon3 apcu-panel php-soap php-pecl-uuid php-pecl-pcs php-pecl-rdkafka php-dbg php-pecl-cassandra
+php-phalcon3 apcu-panel php-soap php-pecl-uuid php-pecl-pcs php-pecl-rdkafka php-dbg php-pecl-cassandra \
+php-phpiredis php-ast php-pecl-ssh2

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # node.js install 7.*
-curl -sL https://rpm.nodesource.com/setup_7.x | bash -
+curl -sL https://rpm.nodesource.com/setup_8.x | bash -
 yum install -y nodejs
 
 NPM_CONFIG=`npm config get prefix`
