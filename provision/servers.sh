@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+yum-complete-transaction -y
+
 # nginxリポジトリ設定
 rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
 
@@ -40,14 +42,17 @@ fastcgi_param HTTPS \$https if_not_empty;
 fastcgi_param REDIRECT_STATUS 200;
 EOF
 
-/bin/systemctl enable php-fpm
-/bin/systemctl restart php-fpm
+#/bin/systemctl enable php-fpm
+/bin/systemctl restart php70-php-fpm
+/bin/systemctl restart php71-php-fpm
+/bin/systemctl restart php72-php-fpm
 
 dd if=/dev/zero of=/EMPTY bs=1M
 rm -f /EMPTY
 sync
 
 # for apache
+sudo yum install autoconf expat-devel libtool libnghttp2-devel pcre-devel -y
 sudo yum install -y httpd
 sudo yum install -y mod_ssl
 sudo mkdir /etc/httpd/fcgi-bin
