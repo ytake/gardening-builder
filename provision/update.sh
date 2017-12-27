@@ -14,7 +14,7 @@ sudo yum install -y telnet
 
 ## to japanese
 sudo yum -y install ibus-kkc vlgothic-*
-localectl set-locale LANG=ja_JP.UTF-8
+localectl set-locale LANG=en_US.UTF-8
 source /etc/locale.conf
 timedatectl set-timezone Asia/Tokyo
 

@@ -27,6 +27,13 @@ sudo yum install -y confluent-platform-oss-2.11
 
 sed -i "s|log.dirs=/var/lib/kafka|log.dirs=/var/log/kafka/" /etc/kafka/server.properties
 
+cd /home/vagrant
+wget https://github.com/ldaniels528/trifecta/releases/download/v0.22.0rc8-0.10.1.0/trifecta-ui-0.22.0rc8b-0.10.1.0.zip
+unzip trifecta-ui-0.22.0rc8b-0.10.1.0.zip
+mv trifecta-ui-0.22.0rc8b-0.10.1.0 trifecta-ui
+rm -rf trifecta-ui-0.22.0rc8b-0.10.1.0.zip
+mkdir /var/log/trifecta
+
 # Apache Cassandra
 sudo cat > /etc/yum.repos.d/cassandra.repo << EOF
 [cassandra]

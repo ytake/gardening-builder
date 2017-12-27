@@ -47,6 +47,41 @@ sudo yum install -y --enablerepo=remi-safe php71-php-intl php71-php-json php71-p
 # php72 environment/libraries
 sudo yum install -y --enablerepo=remi-safe php72-php-intl php72-php-json php72-php-pecl-igbinary php72-php-sodium
 
+# php alternatives
+sudo update-alternatives \
+--install /bin/php php /opt/remi/php72/root/usr/bin/php 30 \
+--slave /bin/erb pear /opt/remi/php72/root/usr/bin/pear \
+--slave /bin/phpdbg phpdbg /opt/remi/php72/root/usr/bin/phpdbg \
+--slave /bin/php-cgi php-cgi /opt/remi/php72/root/usr/bin/php-cgi \
+--slave /bin/phar phar /opt/remi/php72/root/usr/bin/phar.phar \
+--slave /bin/php-config php-config /opt/remi/php72/root/usr/bin/php-config \
+--slave /bin/pecl pecl /opt/remi/php72/root/usr/bin/pecl \
+--slave /bin/phpize phpize /opt/remi/php72/root/usr/bin/phpize \
+--slave /bin/zephir zephir /opt/remi/php72/root/usr/bin/zephir
+
+sudo update-alternatives \
+--install /bin/php php /opt/remi/php71/root/usr/bin/php 20 \
+--slave /bin/erb pear /opt/remi/php71/root/usr/bin/pear \
+--slave /bin/phpdbg phpdbg /opt/remi/php71/root/usr/bin/phpdbg \
+--slave /bin/php-cgi php-cgi /opt/remi/php71/root/usr/bin/php-cgi \
+--slave /bin/phar phar /opt/remi/php71/root/usr/bin/phar.phar \
+--slave /bin/php-config php-config /opt/remi/php71/root/usr/bin/php-config \
+--slave /bin/pecl pecl /opt/remi/php71/root/usr/bin/pecl \
+--slave /bin/phpize phpize /opt/remi/php71/root/usr/bin/phpize \
+--slave /bin/zephir zephir /opt/remi/php71/root/usr/bin/zephir
+
+sudo update-alternatives \
+--install /bin/php php /opt/remi/php70/root/usr/bin/php 10 \
+--slave /bin/erb pear /opt/remi/php70/root/usr/bin/pear \
+--slave /bin/phpdbg phpdbg /opt/remi/php70/root/usr/bin/phpdbg \
+--slave /bin/php-cgi php-cgi /opt/remi/php70/root/usr/bin/php-cgi \
+--slave /bin/phar phar /opt/remi/php70/root/usr/bin/phar.phar \
+--slave /bin/php-config php-config /opt/remi/php70/root/usr/bin/php-config \
+--slave /bin/pecl pecl /opt/remi/php70/root/usr/bin/pecl \
+--slave /bin/phpize phpize /opt/remi/php70/root/usr/bin/phpize \
+--slave /bin/zephir zephir /opt/remi/php70/root/usr/bin/zephir
+
+
 # composer install
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer

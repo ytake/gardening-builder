@@ -26,16 +26,20 @@ Vagrant Box Builder(CentOS 7.*)
  - ElasticSearch 6.0.1
  - Kibana 6.0.1
  - Apache Cassandra 3.11
-
+ 
 ### Caching
  - Redis 4.0.6
  - Memcached 1.4.15
 
+### Message Broker
+ - Apache Kafka 1.0.0 [Confluent Platform](https://docs.confluent.io/current/platform.html)
+ - RabbitMQ 3.7.2 [RabbitMQ](https://www.rabbitmq.com/)
+ - beanstalkd 1.10 [beanstalkd](http://kr.github.io/beanstalkd/)
+ 
 ### Other
  - fluentd
  - Apache Spark 2.2.1 [Apache Spark](https://spark.apache.org/)
- - Apache Kafka 1.0.0 [Confluent Platform](https://docs.confluent.io/current/platform.html)
-
+ 
  etc...
 
 ## PHP
