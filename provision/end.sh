@@ -2,7 +2,9 @@
 
 sudo echo -en "\033[1;34m" > /etc/motd
 sudo echo '>>>>>>>>>> scripting language <<<<<<<<<<' >> /etc/motd
-sudo echo "[PHP]" $(php -v | grep PHP -m 1 2>&1) >> /etc/motd
+sudo echo "[PHP70]" $(php70 -v | grep PHP -m 1 2>&1) >> /etc/motd
+sudo echo "[PHP71]" $(php71 -v | grep PHP -m 1 2>&1) >> /etc/motd
+sudo echo "[PHP72]" $(php72 -v | grep PHP -m 1 2>&1) >> /etc/motd
 sudo echo "[Node.js]" $(node -v 2>&1) >> /etc/motd
 sudo echo '>>>>>>>>>> data storage <<<<<<<<<<' >> /etc/motd
 sudo echo "[memcached]" $(memcached -h | grep 'memcached' -m 1) >> /etc/motd

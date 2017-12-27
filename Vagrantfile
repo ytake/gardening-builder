@@ -33,6 +33,10 @@ Vagrant.configure(2) do |config|
   config.vm.provision :reload
   config.vm.provision 'shell', path: './provision/servers.sh'
   config.vm.provision :reload
+  config.vm.provision 'shell', path: './provision/apache_foundation.sh'
+  config.vm.provision :reload
+  config.vm.provision 'shell', path: './provision/queue_system.sh'
+  config.vm.provision :reload
   config.vm.provision 'shell', path: './provision/local.sh'
   config.vm.provision :reload
   config.vm.provision 'shell', path: './provision/end.sh'

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+yum-complete-transaction -y
+
 # for mysql 5.6 install
 yum remove mysql*
 
@@ -51,22 +53,21 @@ sudo systemctl restart mysqld.service
 ###############################################################
 ## for postgresql install
 ###############################################################
-wget http://yum.postgresql.org/9.5/redhat/rhel-7-x86_64/pgdg-centos95-9.5-3.noarch.rpm
+wget https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm
+sudo rpm -ivh pgdg-centos10-10-2.noarch.rpm
+sudo yum -y install postgresql10-server postgresql10-devel postgresql10-contrib
 
-sudo rpm -ivh pgdg-centos95-9.5-3.noarch.rpm
-sudo yum -y install postgresql95-server postgresql95-devel postgresql95-contrib
+sudo /usr/pgsql-10/bin/postgresql-10-setup initdb
+/bin/systemctl enable postgresql-10.service
+/bin/systemctl start postgresql-10.service
 
-sudo /usr/pgsql-9.5/bin/postgresql95-setup initdb
-/bin/systemctl enable postgresql-9.5.service
-/bin/systemctl start postgresql-9.5.service
-
-sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /var/lib/pgsql/9.5/data/postgresql.conf
-echo "host    all             all             10.0.2.2/32               md5" | tee -a /var/lib/pgsql/9.5/data/pg_hba.conf
+sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /var/lib/pgsql/10/data/postgresql.conf
+echo "host    all             all             10.0.2.2/32               md5" | tee -a /var/lib/pgsql/10/data/pg_hba.conf
 sudo -u postgres psql -c "CREATE ROLE gardening LOGIN UNENCRYPTED PASSWORD '00:secreT,@' SUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION;"
 sudo -u postgres /usr/bin/createdb --echo --owner=gardening gardening
-/bin/systemctl restart postgresql-9.5.service
+/bin/systemctl restart postgresql-10.service
 
-rm -rf pgdg-centos95-9.5-3.noarch.rpm
+rm -rf pgdg-centos10-10-2.noarch.rpm
 
 ###############################################################
 ## for memcached
@@ -106,9 +107,9 @@ echo "
 # for elasticsearch
 rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
 cat > /etc/yum.repos.d/elasticsearch.repo << EOF
-[elasticsearch-5.x]
-name=Elasticsearch repository for 5.x packages
-baseurl=https://artifacts.elastic.co/packages/5.x/yum
+[elasticsearch-6.x]
+name=Elasticsearch repository for 6.x packages
+baseurl=https://artifacts.elastic.co/packages/6.x/yum
 gpgcheck=1
 gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
 enabled=1
@@ -132,9 +133,9 @@ rm -rf mysql57-community-release-el7-8.noarch.rpm
 rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
 
 cat > /etc/yum.repos.d/kibana.repo << EOF
-[kibana-5.x]
-name=Kibana repository for 5.x packages
-baseurl=https://artifacts.elastic.co/packages/5.x/yum
+[kibana-6.x]
+name=Kibana repository for 6.x packages
+baseurl=https://artifacts.elastic.co/packages/6.x/yum
 gpgcheck=1
 gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
 enabled=1
