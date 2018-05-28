@@ -8,14 +8,14 @@ Vagrant Box Builder(CentOS 7.*)
 ### System
  - CentOS 7.*
  - PHP 7.*(remi repository)
- - Node.js 9.*
+ - Node.js 10.*
  - Java 1.8.0_151
  - Git
  - GD and Imagick
  - Composer
  - npm
  - Apache 2.4.6
- - Nginx 1.12.2
+ - Nginx 1.14.2
 
 ### Database
  - MySQL 5.7.20
@@ -23,8 +23,8 @@ Vagrant Box Builder(CentOS 7.*)
  - SQLite 3.7.17
  - MongoDB 3.6.0
  - Couchbase 5.0.1
- - ElasticSearch 6.0.1
- - Kibana 6.0.1
+ - ElasticSearch 6.2.4
+ - Kibana 6.2.4
  - Apache Cassandra 3.11
  
 ### Caching
@@ -32,7 +32,7 @@ Vagrant Box Builder(CentOS 7.*)
  - Memcached 1.4.15
 
 ### Message Broker
- - Apache Kafka 1.0.0 [Confluent Platform](https://docs.confluent.io/current/platform.html)
+ - Apache Kafka 1.0.1 [Confluent Platform](https://docs.confluent.io/current/platform.html)
  - RabbitMQ 3.7.2 [RabbitMQ](https://www.rabbitmq.com/)
  - beanstalkd 1.10 [beanstalkd](http://kr.github.io/beanstalkd/)
  
