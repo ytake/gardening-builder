@@ -23,8 +23,8 @@ Vagrant Box Builder(CentOS 7.*)
  - SQLite 3.7.17
  - MongoDB 3.6.0
  - Couchbase 5.0.1
- - ElasticSearch 6.0.1
- - Kibana 6.0.1
+ - ElasticSearch 6.2.4
+ - Kibana 6.2.4
  - Apache Cassandra 3.11
  
 ### Caching
