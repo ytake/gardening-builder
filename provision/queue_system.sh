@@ -4,10 +4,12 @@
 wget https://packages.erlang-solutions.com/erlang-solutions-1.0-1.noarch.rpm
 rpm -Uvh erlang-solutions-1.0-1.noarch.rpm
 sudo yum install -y erlang socat
+rm -rf erlang-solutions-1.0-1.noarch.rpm
 
 wget https://dl.bintray.com/rabbitmq/all/rabbitmq-server/3.7.2/rabbitmq-server-3.7.2-1.el7.noarch.rpm
 sudo rpm --import https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
 rpm -Uvh rabbitmq-server-3.7.2-1.el7.noarch.rpm
+rm -rf rabbitmq-server-3.7.2-1.el7.noarch.rpm
 
 systemctl enable rabbitmq-server
 systemctl start rabbitmq-server

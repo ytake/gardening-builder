@@ -3,18 +3,18 @@
 sudo yum install iy libyaml-devel
 
 # php70 developer files
-sudo yum install -y --enablerepo=remi-safe php70-php-devel php70-php-pecl-igbinary-devel php70-php-pecl-pcs-devel php70-php-phalcon3
+sudo yum install -y --enablerepo=remi-safe php70-php-devel php70-php-pecl-igbinary-devel php70-php-pecl-pcs-devel php70-php-phalcon3 php70-php-pecl-geoip
 
 # php71 developer files
-sudo yum install -y --enablerepo=remi-safe php71-php-devel php71-php-pecl-igbinary-devel php71-php-pecl-pcs-devel php71-php-phalcon3
+sudo yum install -y --enablerepo=remi-safe php71-php-devel php71-php-pecl-igbinary-devel php71-php-pecl-pcs-devel php71-php-phalcon3 php71-php-pecl-geoip
 
 # php72 developer files
-sudo yum install -y --enablerepo=remi-safe php72-php-devel php72-php-pecl-igbinary-devel php72-php-pecl-pcs-devel php72-php-phalcon3
+sudo yum install -y --enablerepo=remi-safe php72-php-devel php72-php-pecl-igbinary-devel php72-php-pecl-pcs-devel php72-php-phalcon3 php72-php-pecl-geoip
 
 # php70 extensions
 sudo yum install -y --enablerepo=remi-safe php70-php-xml php70-php-sqlsrv php70-php-soap \
 php70-php-pgsql php70-php-pecl-zmq php70-php-pecl-zip php70-php-pecl-yaml php70-php-pecl-xdebug php70-php-pecl-uuid php70-php-pecl-uopz \
-php70-php-pecl-stomp php70-php-pecl-ssh2 php70-php-pecl-solr2 php70-php-pecl-redis php70-php-pecl-rdkafka \
+php70-php-pecl-stomp php70-php-pecl-ssh2 php70-php-pecl-solr2 php70-php-pecl-redis4 php70-php-pecl-rdkafka \
 php70-php-pecl-pcs php70-php-pecl-msgpack php70-php-pecl-mongodb php70-php-pecl-memprof php70-php-pecl-memcached php70-php-pecl-mcrypt \
 php70-php-pecl-libsodium php70-php-pecl-imagick php70-php-pecl-event php70-php-pecl-amqp php70-php-pecl-apcu php70-php-pecl-apcu-bc \
 php70-php-pear php70-php-pdo-dblib php70-php-pdo php70-php-opcache php70-php-mysqlnd php70-php-mbstring \
@@ -23,7 +23,7 @@ php70-php-ldap php70-php-gd php70-php-fpm php70-php-dbg php70-php-common php70-p
 # php71 extensions
 sudo yum install -y --enablerepo=remi-safe php71-php-xml php71-php-sqlsrv php71-php-soap \
 php71-php-pgsql php71-php-pecl-zmq php71-php-pecl-zip php71-php-pecl-yaml php71-php-pecl-xdebug php71-php-pecl-uuid php71-php-pecl-uopz \
-php71-php-pecl-stomp php71-php-pecl-ssh2 php71-php-pecl-solr2 php71-php-pecl-redis php71-php-pecl-rdkafka \
+php71-php-pecl-stomp php71-php-pecl-ssh2 php71-php-pecl-solr2 php71-php-pecl-redis4 php71-php-pecl-rdkafka \
 php71-php-pecl-pcs php71-php-pecl-msgpack php71-php-pecl-mongodb php71-php-pecl-memprof php71-php-pecl-memcached php71-php-pecl-mcrypt \
 php71-php-pecl-libsodium php71-php-pecl-imagick php71-php-pecl-event php71-php-pecl-amqp php71-php-pecl-apcu php71-php-pecl-apcu-bc \
 php71-php-pear php71-php-pdo-dblib php71-php-pdo  php71-php-opcache php71-php-mysqlnd php71-php-mbstring \
@@ -32,7 +32,7 @@ php71-php-ldap php71-php-gd php71-php-fpm php71-php-dbg php71-php-common php71-p
 # php72 extensions
 sudo yum install -y --enablerepo=remi-safe php72-php-xml php72-php-sqlsrv php72-php-soap \
 php72-php-pgsql php72-php-pecl-zmq php72-php-pecl-zip php72-php-pecl-yaml php72-php-pecl-xdebug php72-php-pecl-uuid php72-php-pecl-uopz \
-php72-php-pecl-stomp php72-php-pecl-ssh2 php72-php-pecl-solr2 php72-php-pecl-redis php72-php-pecl-rdkafka \
+php72-php-pecl-stomp php72-php-pecl-ssh2 php72-php-pecl-solr2 php72-php-pecl-redis4 php72-php-pecl-rdkafka \
 php72-php-pecl-pcs php72-php-pecl-msgpack php72-php-pecl-mongodb php72-php-pecl-memprof php72-php-pecl-memcached php72-php-pecl-mcrypt \
 php72-php-pecl-libsodium php72-php-pecl-imagick php72-php-pecl-event php72-php-pecl-amqp php72-php-pecl-apcu php72-php-pecl-apcu-bc \
 php72-php-pear php72-php-pdo-dblib php72-php-pdo  php72-php-opcache php72-php-mysqlnd php72-php-mbstring \
@@ -220,11 +220,13 @@ cd ..
 sudo rm -rf /home/vagrant/xhprof
 
 ## append php70 extension
-sudo yum install -y --enablerepo=remi-safe php70-php-pecl-couchbase2 php70-php-pecl-cassandra php70-php-phpiredis
+sudo yum install -y --enablerepo=remi-safe php70-php-pecl-couchbase2 php70-php-pecl-cassandra php70-php-phpiredis \
+php70-php-pecl-protobuf php70-php-pecl-swoole2 php70-php-pecl-ds php70-php-pecl-grpc
 
 ## append php71 extension
-sudo yum install -y --enablerepo=remi-safe php71-php-pecl-couchbase2 php71-php-pecl-cassandra php71-php-phpiredis
+sudo yum install -y --enablerepo=remi-safe php71-php-pecl-couchbase2 php71-php-pecl-cassandra php71-php-phpiredis \
+php71-php-pecl-protobuf php71-php-pecl-swoole2 php71-php-pecl-ds php71-php-pecl-grpc
 
 ## append php72 extension
-sudo yum install -y --enablerepo=remi-safe php72-php-pecl-couchbase2 php72-php-pecl-cassandra php72-php-phpiredis
-
+sudo yum install -y --enablerepo=remi-safe php72-php-pecl-couchbase2 php72-php-pecl-cassandra php72-php-phpiredis \
+php72-php-pecl-protobuf php72-php-pecl-swoole2 php72-php-pecl-ds php72-php-pecl-grpc

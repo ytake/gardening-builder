@@ -5,10 +5,12 @@ yum-complete-transaction -y
 # Gardening include
 
 # install couchbase
-wget https://packages.couchbase.com/releases/5.0.1/couchbase-server-community-5.0.1-centos7.x86_64.rpm
-rpm -ivh couchbase-server-community-5.0.1-centos7.x86_64.rpm
+curl -O http://packages.couchbase.com/releases/couchbase-release/couchbase-release-1.0-5-x86_64.rpm
+sudo rpm -i couchbase-release-1.0-5-x86_64.rpm
+sudo yum update
+sudo yum install -y couchbase-server-community
 
-rm -rf couchbase-server-community-5.0.1-centos7.x86_64.rpm
+rm -rf couchbase-release-1.0-5-x86_64.rpm
 
 # install mongodb
 cat > /etc/yum.repos.d/mongodb-org-3.6.repo << EOF

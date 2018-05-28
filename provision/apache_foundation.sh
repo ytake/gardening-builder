@@ -4,21 +4,21 @@ yum-complete-transaction -y
 
 # For Lambda|Kappa Architecture Developer
 # Confluent platform(Apache Kafka) install
-sudo rpm --import https://packages.confluent.io/rpm/4.0/archive.key
+sudo rpm --import https://packages.confluent.io/rpm/4.1/archive.key
 
 sudo cat > /etc/yum.repos.d/confluent.repo << EOF
 [Confluent.dist]
 name=Confluent repository (dist)
-baseurl=https://packages.confluent.io/rpm/4.0/7
+baseurl=https://packages.confluent.io/rpm/4.1/7
 gpgcheck=1
-gpgkey=https://packages.confluent.io/rpm/4.0/archive.key
+gpgkey=https://packages.confluent.io/rpm/4.1/archive.key
 enabled=1
 
 [Confluent]
 name=Confluent repository
-baseurl=https://packages.confluent.io/rpm/4.0
+baseurl=https://packages.confluent.io/rpm/4.1
 gpgcheck=1
-gpgkey=https://packages.confluent.io/rpm/4.0/archive.key
+gpgkey=https://packages.confluent.io/rpm/4.1/archive.key
 enabled=1
 EOF
 
@@ -26,13 +26,6 @@ sudo yum clean all
 sudo yum install -y confluent-platform-oss-2.11
 
 sed -i "s|log.dirs=/var/lib/kafka|log.dirs=/var/log/kafka/" /etc/kafka/server.properties
-
-cd /home/vagrant
-wget https://github.com/ldaniels528/trifecta/releases/download/v0.22.0rc8-0.10.1.0/trifecta-ui-0.22.0rc8b-0.10.1.0.zip
-unzip trifecta-ui-0.22.0rc8b-0.10.1.0.zip
-mv trifecta-ui-0.22.0rc8b-0.10.1.0 trifecta-ui
-rm -rf trifecta-ui-0.22.0rc8b-0.10.1.0.zip
-mkdir /var/log/trifecta
 
 # Apache Cassandra
 sudo cat > /etc/yum.repos.d/cassandra.repo << EOF
